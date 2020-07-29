@@ -1,7 +1,9 @@
 require('./config/config');
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const mongoose = require('mongoose');
+
+const app = express();
 const bodyParser = require('body-parser'); //npm body-parser
 
 
@@ -11,55 +13,22 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json()); //MIDDLEWARES : TODAS LAS PETICIONES PASARAN POR AQUI.
 
-app.get('/usuario', function(req, res) {
-    res.json('get Usuario');
-});
+
+app.use(require('./routes/usuario'));
 
 
-app.post('/usuario', function(req, res) {
 
-    let body = req.body
 
-    if (body.nombre === undefined) {
 
-        res.status(400).json({
-            ok: false,
-            mensaje: "El nombre es necesario"
-        }); // indicamos el status BAD REQUEST 400 para que el usuario que usa nuestra api tenga informacion.
+mongoose.connect(process.env.URLDB, { //<--ACA NOS CONECTAMOS A MONGODB, USANDO MONGOOSE DE NPM METODO CONNECT VERIFICAR DOC.
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true //<--- ESTO VIENE DEFINIDO DESDE NPM MONGOOSE PARA CONECTAR.
+    }).then((resp) => console.log('Base de Datos Online'))
+    .catch((err) => console.log('No se Conecto a la Base de Datos', err)) // <--controlamos el si es posible error funcion de felcha.
 
-    } else {
 
-        res.json({
-            persona: body
-        });
 
-    }
-
-});
-
-app.put('/usuario/:id', function(req, res) {
-
-    let UsuarioId = req.params.id;
-
-    res.json({
-        UsuarioId //EN POCAS PALABRAS SE DICE QUE SE RETORNE COMO JSON LO QUE SE RECIBA DEL URL.
-    });
-});
-
-app.delete('/usuario', function(req, res) {
-    res.json('delete Usuario');
-});
-
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => { //<--- process.env.PORT ES PARA QUE EL PUERTO LO RECONOZCA SOLO. 
     console.log(`Escuchando el puerto: `, 8080);
 });
-
-
-// PETICIONES GET,POST,PUT,DELETE
-//PUT SE USA PARA CUANDO QUEREMOS ACTUALIZAR DATA.
-//POST ES MAS QUE TODO PARA CREAR NUEVOS REGISTROS.
-
-
-//Normalmente en un POST no simplemente se hace una peticion. nosotros vamos a mandar una informacion.accordion
-//POSTMAN NOTA : Body - x-wwww-form-urlencoded
-//ponemos 2 keys con values
