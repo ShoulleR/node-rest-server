@@ -11,7 +11,7 @@ const express = require('express');
 const bcrypt = require('bcrypt'); // npm bcrypt para encriptar password.
 const _ = require('underscore'); // npm install underscore. //libreria de metodos ayudantes muy buena.
 const Usuario = require('../models/usuario'); //<--importamos el modelo de schema.
-
+const { verificaToken, verificaAdmin_role } = require('../middlewares/autenticacion')
 const app = express();
 
 
@@ -19,7 +19,7 @@ const app = express();
 
 
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, function(req, res) { // el segundo parametro le estamos diciendo que lo use de middleware cuando se quiera accesar a la ruta /usuario, no estamos ejecutando la funcion como tal
 
 
 
@@ -73,7 +73,7 @@ app.get('/usuario', function(req, res) {
 });
 
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdmin_role], (req, res) => {
 
     let body = req.body; //SABEMOS QUE AQUI ESTAMOS RECIBIENDO INFO DEL POST
 
@@ -104,7 +104,7 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) { //ENTIENDE POR PUT COMO ACTUALIZACION DE REGISTRO.
+app.put('/usuario/:id', [verificaToken, verificaAdmin_role], function(req, res) { //ENTIENDE POR PUT COMO ACTUALIZACION DE REGISTRO.
 
     let id = req.params.id; //el id es lo que viene despues del usuario/: en el PATH
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']); // se recibe info del postman. //se usa el metodo pick de underscore
@@ -128,7 +128,7 @@ app.put('/usuario/:id', function(req, res) { //ENTIENDE POR PUT COMO ACTUALIZACI
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdmin_role], function(req, res) {
 
     let id = req.params.id;
     let estado = {

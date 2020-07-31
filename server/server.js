@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json()); //MIDDLEWARES : TODAS LAS PETICIONES PASARAN POR AQUI.
 
 
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index')); //CONFIGURACION GLOBAL DE LAS RUTAS.
+
 
 
 
