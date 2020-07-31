@@ -73,7 +73,7 @@ app.get('/usuario', verificaToken, function(req, res) { // el segundo parametro 
 });
 
 
-app.post('/usuario', verificaAdmin_role, (req, res) => {
+app.post('/usuario', [verificaToken, verificaAdmin_role], (req, res) => {
 
     let body = req.body; //SABEMOS QUE AQUI ESTAMOS RECIBIENDO INFO DEL POST
 
