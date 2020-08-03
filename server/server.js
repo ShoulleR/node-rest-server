@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 const bodyParser = require('body-parser'); //npm body-parser
+const path = require('path'); // trae por defecto nodejs
 
 
 //parse application/x - www - form - urlencoded
@@ -15,6 +16,12 @@ app.use(bodyParser.json()); //MIDDLEWARES : TODAS LAS PETICIONES PASARAN POR AQU
 
 
 app.use(require('./routes/index')); //CONFIGURACION GLOBAL DE LAS RUTAS.
+app.use(require('./routes/login'));
+
+
+
+//habilitamos la carpeta public.
+app.use(express.static(__dirname + '/public')); //ESTE METODO ARMA POR NOSOTROS LOS EL PATH ENVIANDO SEGMENTOS DEL PATH.
 
 
 
