@@ -181,12 +181,6 @@ app.post('/google', async(req, res) => {
 
     });
 
-
-
-    //res.json({
-    //    usuario: googleUser
-    //})
-
 });
 
 

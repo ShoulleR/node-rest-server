@@ -45,7 +45,7 @@ let verificaAdmin_role = (req, res, next) => {
         });
     }
 
-    next();
+    next(); //este next es para que siga con el programa
 
 
 }

@@ -64,7 +64,7 @@ app.get('/usuario', verificaToken, function(req, res) { // el segundo parametro 
                     cuantos: conteo
 
 
-                })
+                });
 
             })
 

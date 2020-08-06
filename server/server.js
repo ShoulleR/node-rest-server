@@ -16,7 +16,7 @@ app.use(bodyParser.json()); //MIDDLEWARES : TODAS LAS PETICIONES PASARAN POR AQU
 
 
 app.use(require('./routes/index')); //CONFIGURACION GLOBAL DE LAS RUTAS.
-app.use(require('./routes/login'));
+
 
 
 

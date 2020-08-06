@@ -19,7 +19,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev' // esto es una variable que
 //Queremos que dure 30 dias
 //60 segundos * 60 minutos * 24horas * 30 dias
 
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = '48h';
 
 
 
