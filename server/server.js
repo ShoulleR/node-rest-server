@@ -2,7 +2,6 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
-
 const app = express();
 const bodyParser = require('body-parser'); //npm body-parser
 const path = require('path'); // trae por defecto nodejs
@@ -15,15 +14,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json()); //MIDDLEWARES : TODAS LAS PETICIONES PASARAN POR AQUI.
 
 
-app.use(require('./routes/index')); //CONFIGURACION GLOBAL DE LAS RUTAS.
-
-
-
 
 //habilitamos la carpeta public.
-app.use(express.static(__dirname + '/public')); //ESTE METODO ARMA POR NOSOTROS LOS EL PATH ENVIANDO SEGMENTOS DEL PATH.
+app.use(express.static(path.resolve(__dirname, '../public'))); // metodo path.resolve ayuda a crear el path con fragmentos del mismo
+//app.use(express.static(__dirname + '../public')); //ESTE METODO ARMA POR NOSOTROS LOS EL PATH ENVIANDO SEGMENTOS DEL PATH.
 
-
+app.use(require('./routes/index')); //CONFIGURACION GLOBAL DE LAS RUTAS.
 
 
 

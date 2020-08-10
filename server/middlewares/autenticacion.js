@@ -51,9 +51,36 @@ let verificaAdmin_role = (req, res, next) => {
 }
 
 
+//=========================
+//Verifica token img // token por url
+//=========================
+
+let verificaTokenImg = (req, res, next) => {
+
+    let token = req.query.token;
+
+    jwt.verify(token, process.env.SEED, (err, decoded) => { // esta funcion la trae jwt para verificar los tokens.
+
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                message: 'token invalido'
+            })
+        }
+
+        req.usuario = decoded.usuario; // el decoded.usuario es el payload del token
+        next(); //este next es para que siga con el programa 
+
+    });
+
+
+
+}
+
 
 
 module.exports = {
     verificaToken,
-    verificaAdmin_role
+    verificaAdmin_role,
+    verificaTokenImg
 }
