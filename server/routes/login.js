@@ -20,7 +20,7 @@ app.post('/login', (req, res) => {
 
 
     Usuario.findOne({ email: body.email }, (err, usuarioDB) => {
-
+		console.log(body);
         if (err) {
             return res.status(500).json({
                 ok: false,
